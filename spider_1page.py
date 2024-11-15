@@ -11,8 +11,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
 
-# China Times search URL for "外省"
-base_search_url = "  https://www.chinatimes.com/search/%E7%9C%B7%E6%9D%91?page=46&chdtv   "
+# 範例： China Times search URL for "阿里山"
+base_search_url = "  https://www.chinatimes.com/search/%E9%98%BF%E9%87%8C%E5%B1%B1?chdtv   "
 keyword = "外省"
 encoded_keyword = urllib.parse.quote(keyword)
 
@@ -85,11 +85,8 @@ def extract_article_info(article):
     return title, link, time_text, label
 
 # Main scraping logic
-
-#頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 
-#頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 #頁數 
 try:
-    for page in range(46,47):  
+    for page in range(1,41):   # 需要的爬蟲範圍，可依個人需求進行更改。若需要的頁數為1~40頁，更改數字為(1,41)
         search_url = base_search_url.format(encoded_keyword, page)
         print(f"\nFetching search page {page}: {search_url}")
         
@@ -137,8 +134,7 @@ except Exception as e:
 finally:
     driver.quit()
 
-#檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名 #檔名
-output_file_path = '/Users/weichiiiiih/Desktop/Cword_Cword_village46.txt'
+output_file_path = '/Users/Desktop/keyword_Alishan2.txt'
 
 with open(output_file_path, 'w', encoding='utf-8') as f:
     for item in news_list:
