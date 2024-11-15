@@ -3,15 +3,16 @@ from bs4 import BeautifulSoup
 import random
 import time
 
-# 自由時報搜索 URL，搜索關鍵詞為 "外省" 且限定為評論版
-base_search_url = "https://search.ltn.com.tw/list?keyword=%E5%A4%96%E7%9C%81&start_time=20041201&end_time=20240719&sort=date&type=all&page=1"
+# 自由時報搜索 URL，搜索關鍵詞後會跳轉的至這個關鍵字的第一頁，複製貼上網址
+# 範例：欲搜尋之關鍵字為「阿里山」
+base_search_url = " https://search.ltn.com.tw/list?keyword=%E9%98%BF%E9%87%8C%E5%B1%B1  "
 
 # 保存結果的列表
 news_list = []
 
 # 函數：發送請求並隨機延遲
 def fetch_url(url):
-    delay = random.uniform(20, 35)  # 生成隨機延遲時間，以防止被檢測為爬蟲
+    delay = random.uniform(20, 35)  # 在20~35秒之間隨機生成延遲時間，以防止被檢測為爬蟲 # 可依個人需求調整至更快或更慢的延遲時間
     print(f"Delaying for {delay:.2f} seconds...")
     time.sleep(delay)
     try:
@@ -43,7 +44,7 @@ def extract_article_info(article):
     return title, link, time_text
 
 # 主爬蟲邏輯
-for page in range(1, 50):  # 爬取前20~40頁
+for page in range(1, 51):  # 自行輸入需要爬蟲的範圍，若需要1~50頁，則更數字為(1,51)
     search_url = base_search_url.format(page)
     print(f"\nFetching search page {page}: {search_url}")
     
@@ -92,8 +93,9 @@ for news in news_list:
 print(f"\nTotal articles scraped: {len(news_list)}")
 print(output)
 
-# 保存到本地文件
-output_file = '/Users/weichiiiiih/Desktop/keyword_mainland.txt'
+# 以新文件保存到電腦，在' '內貼上欲存檔案的路徑和檔名
+# 範例：欲搜尋之關鍵字為「阿里山」
+output_file = '/Users/Desktop/keyword_Alishan.txt'
 try:
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(output)
